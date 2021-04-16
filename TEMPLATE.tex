@@ -73,7 +73,7 @@ This paper metaphorically serves as a time tunnel from the level of an intermedi
 
 The exposition makes no pretensions on novelty of content and if there is anything original within, it lies exclusively in the connective tissue between theorems. Solutions to the problems are mainly my own, although a few are adapted from other sources for results that I was unable to prove independently but were crucial for the flow of the exposition. These are attributed correspondingly. Give credit where credit is due. 
 
-In \href{https://www.ams.org/journals/notices/202104/rnoti-p565.pdf}{a recent paper in the \textit{Notices}}, Princeton professor Weinan E briefly describes the distinction between "Courant-style" and "British-style" applied mathematics in the '80s. The former championed numerics and theorems: "its philosophy was that as long as the underlying PDEs and numerical algorithms are solid, much can be learned through computing". Some of its leaders were Von Neumann, Courant, Friedrichs, and Lax, who were of course also great \textit{pure mathematicians} in addition to their distinguished careers as applied mathematicians. This is in stark contrast with the latter camp, which "championed physical insight and asymptotics". The present paper leans strongly in the direction of the Courant-style. 
+In \href{https://www.ams.org/journals/notices/202104/rnoti-p565.pdf}{a recent paper in the \textit{Notices}}, Princeton professor Weinan E briefly describes the distinction between "Courant-style" and "British-style" applied mathematics in the '80s. The former championed numerics and theorems: "its philosophy was that as long as the underlying PDEs and numerical algorithms are solid, much can be learned through computing". Some of its leaders were Von Neumann, Courant, Friedrichs, and Lax, who were of course also great \textit{pure mathematicians} in addition to their distinguished careers as applied mathematicians. This is in stark contrast with the latter camp, which "championed physical insight and asymptotics". The present paper leans strongly in the direction of the Courant-style as it prioritizes theorem proving. Time permitting, this will also be extended to include algorithms to fulfill the second criteria of this camp of applied mathematics. 
 \end{abstract}
 
 
@@ -83,10 +83,7 @@ In \href{https://www.ams.org/journals/notices/202104/rnoti-p565.pdf}{a recent pa
 \tableofcontents
 \pagebreak
 
-\section{General Preliminaries} This section focuses on developing and illustrating theory of Hilbert spaces and some related functional analysis from a background in proof-based linear algebra (think Axler) and basic analysis. After covering the important Riesz Representation Theorem, which provides a representation for linear functionals on an inner product space through the inner product, Reproducing Kernel Hilbert spaces are introduced and some basic, yet deep, characterizations are provided. The main aim is to give a sufficient background for understanding more advanced topics to be covered in Chapter 2, which discusses the kernel trick and the mathematical motiviation for kernel-based learning methods, and Chapter 3, which discusses the Karhunen-Lo\'{e}ve theorem, a way to represent a stochastic process through orthogonal functions, particularly integral operators. 
-
-
-Something something about the one Courant applied math school thing from Princeton's Weinan E
+\section{General Preliminaries} This section focuses on developing and illustrating theory of Hilbert spaces and some related functional analysis from a background in proof-based linear algebra (think Axler) and basic analysis. After covering the important Riesz Representation Theorem, which provides a representation for linear functionals on an inner product space through the inner product, Reproducing Kernel Hilbert spaces are introduced and some basic, yet deep, characterizations are provided. The main aim is to give a sufficient background for understanding more advanced topics to be covered in Chapter 2, which discusses the kernel trick and the mathematical motiviation for kernel-based learning methods, and Chapter 3, which discusses the Karhunen-Lo\'{e}ve theorem, a way to represent a stochastic process through orthogonal functions, particularly integral operators. For ease of exposition, we briefly review fairly elementary concepts that are familiar to most intermediate undergraduate math majors and then seamlessly transition into topics that aren't at all \textit{out of reach} for one with a firm grasp of the simpler concepts. Copious examples are provided since 1) they reflect my knowledge of the material and 2) are of absolute necessity to true understanding. 
 
 \subsection{Inner Product Spaces}
 Real and complex vector spaces can have an additional function defined on them, called the inner product, that satisfies the following defns. 
@@ -127,14 +124,14 @@ $$||u+v|| = (a+1)||v|| = ||u|| + ||v||.$$
 To show the converse, observe that 
 $$||u||^2 + \langle u, v \rangle + \langle v, u \rangle + ||v||^2 = ||u||^2 + 2 ||u|| ||v|| + ||v||^2 $$
 while 
-$$|\langle u, v \rangle | \leq || u || || v|| = \mathcal{R} (\langle u, v \rangle ) \leq | u , v \rangle |.$$
+$$|\langle u, v \rangle | \leq || u || || v|| = \mathcal{R} (\langle u, v \rangle ) \leq | \langle u , v \rangle |.$$
 Equality in Cauchy-Schwarz holds only if one of $u$ or $v$ is a scalar multiple of the other. Without loss of generality, let $u = av$ for some $a \in F$. Then 
 $$||u|| || v|| = \langle u, v \rangle = \langle av, u \rangle = a || v||^2, $$
 meaning that $a$ must be non-negative. 
 \end{exmp}
 
 
-\subsection{Linear Algebra Meets Fourier} An important problem in linear algebra is the determination of the basis for a particular space. As was covered in a first linear algebra class, orthonormal bases have a great practical advantage over arbitrary basis. Fourier expansions provide a mechanism by which an explicit expression can be found for any vector. A nonempty set $\mathcal{O} = \{ u_i | i \in K \}$ of vectors in an inner product space is said to be an orthogonal set if $\langle u_i u_j \rangle = \delta _{ij}$ for all $i, j \in K$. Given that $\mathcal{O}$ is an orthonormal subset of an inner product space $V$ and $S = \langle \mathcal{O} \rangle$, the Fourier expansion with respect to $\mathcal{O}$ of $v \in V$ is 
+\subsection{Linear Algebra Meets Fourier} An important problem in linear algebra is the determination of the basis for a particular space. As was covered in a first linear algebra class, orthonormal bases have a great practical advantage over arbitrary bases. Fourier expansions provide a mechanism by which an explicit expression can be found for any vector. A nonempty set $\mathcal{O} = \{ u_i | i \in K \}$ of vectors in an inner product space is said to be an orthogonal set if $\langle u_i u_j \rangle = \delta _{ij}$ for all $i, j \in K$. Given that $\mathcal{O}$ is an orthonormal subset of an inner product space $V$ and $S = \langle \mathcal{O} \rangle$, the Fourier expansion with respect to $\mathcal{O}$ of $v \in V$ is 
 $$\hat{v} = \langle v, u_1 \rangle u_1 + \cdots + \langle v, u_k \rangle u_k .$$
 This vector $\hat{v}$ can be characterized as  
 \begin{itemize}
